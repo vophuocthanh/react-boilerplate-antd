@@ -1,16 +1,5 @@
 import axiosClient from '@/api/axiosClient';
-
-export interface IUser {
-  id?: number;
-  name: string;
-  email: string;
-  role: {
-    id?: number;
-    name: string;
-  };
-  created_at?: string;
-  updated_at?: string;
-}
+import { IUser } from '@/lib/interface';
 
 export const usersAPI = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
