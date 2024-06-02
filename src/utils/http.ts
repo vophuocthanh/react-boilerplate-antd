@@ -65,3 +65,5 @@ enum HttpStatusCode {
 }
 
 export default HttpStatusCode;
+
+// I think it should be put in the constants folder

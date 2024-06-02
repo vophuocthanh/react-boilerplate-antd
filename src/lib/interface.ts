@@ -1,3 +1,5 @@
+//Why do you put the interface in the lib folder?
+// I think lib folder should contain the common functions, constants, or utilities that can be used in multiple places in the project.
 export interface IUser {
   id?: number;
   name: string;

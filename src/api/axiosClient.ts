@@ -1,7 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
-import { appAction } from '@/redux/store/appSlice';
-import { history } from '@/utils/history';
-import { useAppDispatch } from '@/redux/hooks';
+import axios, { AxiosResponse } from "axios";
+import { appAction } from "@/redux/store/appSlice";
+import { history } from "@/utils/history";
+import { useAppDispatch } from "@/redux/hooks";
 const baseURL = import.meta.env.VITE_API_URL;
 
 export interface LoginResponse {
@@ -12,23 +12,24 @@ export interface LoginResponse {
 }
 
 const getLocalRefreshToken = () => {
-  const token = localStorage.getItem('refresh');
+  // Should create constant such as REFRESH_TOKEN and "refresh" not clearly
+  const token = localStorage.getItem("refresh");
   return token;
 };
 const updateLocalAccessToken = (res: LoginResponse) => {
-  localStorage.setItem('access', res.access);
-  localStorage.setItem('refresh', res.refresh);
+  localStorage.setItem("access", res.access);
+  localStorage.setItem("refresh", res.refresh);
 };
 const axiosClient = axios.create({
   baseURL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 // Add a request interceptor
 axiosClient.interceptors.request.use(
   function (config) {
-    const token = localStorage.getItem('access');
+    const token = localStorage.getItem("access");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -61,7 +62,7 @@ axiosClient.interceptors.response.use(
         return axiosClient(originalConfig);
       } catch (_error) {
         localStorage.clear();
-        history.push('/');
+        history.push("/");
         return Promise.reject(_error);
       }
     }
