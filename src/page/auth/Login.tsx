@@ -1,36 +1,40 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { Account } from '@/redux/authSaga';
-import { authApi } from '@/api/auth.api';
-import { setAccessTokenToLS, setRefreshTokenToLS } from '@/utils/storage';
-import { toast } from 'sonner';
-import { Button, Form, Input, Typography } from 'antd';
-import { FieldType } from '@/types/general.type';
-const { Text } = Typography;
+import { authApi } from '@/api/auth.api'
+import { AppContext, AppContextType } from '@/contexts/app.context'
+import { Account } from '@/redux/authSaga'
+import { FieldType } from '@/types/general.type'
+import { setAccessTokenToLS, setRefreshTokenToLS } from '@/utils/storage'
+import { useMutation } from '@tanstack/react-query'
+import { Button, Form, Input, Typography } from 'antd'
+import { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+const { Text } = Typography
 
 export default function Login() {
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
+  const { setIsAuthenticated } = useContext<AppContextType>(AppContext)
+  const [isLoading, setIsLoading] = useState(false)
 
   const loginMutation = useMutation({
-    mutationFn: (data: Account) => authApi.login(data),
-  });
+    mutationFn: (data: Account) => authApi.login(data)
+  })
 
   const onSubmit = async (data: Account) => {
-    setIsLoading(true);
+    setIsLoading(true)
     loginMutation.mutate(data, {
       onSuccess: (data) => {
-        setAccessTokenToLS(data.access);
-        setRefreshTokenToLS(data.refresh);
-        navigate('/');
-        toast.success('Login successfully!');
+        setAccessTokenToLS(data.access)
+        setRefreshTokenToLS(data.refresh)
+        setIsAuthenticated(true)
+        navigate('/')
+        toast.success('Login successfully!')
       },
       onError: (error) => {
-        toast.error(error.message);
-      },
-    });
-  };
+        toast.error(error.message)
+      }
+    })
+  }
+
   return (
     <div className='flex items-center justify-center h-screen'>
       <Form
@@ -43,9 +47,7 @@ export default function Login() {
         autoComplete='off'
         onFinish={onSubmit}
       >
-        <Text className='flex justify-center mx-auto text-3xl font-bold'>
-          Login
-        </Text>
+        <Text className='flex justify-center mx-auto text-3xl font-bold'>Login</Text>
         <Form.Item<FieldType>
           label='Email'
           name='email'
@@ -65,26 +67,18 @@ export default function Login() {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button
-            loading={isLoading}
-            type='primary'
-            htmlType='submit'
-            className='flex ml-auto'
-          >
+          <Button loading={isLoading} type='primary' htmlType='submit' className='flex ml-auto'>
             Submit
           </Button>
         </Form.Item>
 
         <p className='font-medium'>
           Don’t have an account yet?{' '}
-          <Link
-            to='/register'
-            className='text-blue-600 underline cursor-pointer'
-          >
+          <Link to='/register' className='text-blue-600 underline cursor-pointer'>
             Create account
           </Link>
         </p>
       </Form>
     </div>
-  );
+  )
 }

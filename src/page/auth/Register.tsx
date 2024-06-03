@@ -1,33 +1,33 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { Account } from '@/redux/authSaga';
-import { authApi } from '@/api/auth.api';
-import { toast } from 'sonner';
-import { Button, Form, Input, Typography } from 'antd';
-import { FieldType } from '@/types/general.type';
-const { Text } = Typography;
+import { authApi } from '@/api/auth.api'
+import { Account } from '@/redux/authSaga'
+import { FieldType } from '@/types/general.type'
+import { useMutation } from '@tanstack/react-query'
+import { Button, Form, Input, Typography } from 'antd'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+const { Text } = Typography
 
 export default function Register() {
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
 
   const registerMutation = useMutation({
-    mutationFn: (data: Account) => authApi.register(data),
-  });
+    mutationFn: (data: Account) => authApi.register(data)
+  })
 
   const onSubmit = async (data: Account) => {
-    setIsLoading(true);
+    setIsLoading(true)
     registerMutation.mutate(data, {
       onSuccess: () => {
-        toast.success('Registration account successful!');
-        navigate('/login');
+        toast.success('Registration account successful!')
+        navigate('/login')
       },
       onError: () => {
-        toast.error('An error occurred. Please try again.');
-      },
-    });
-  };
+        toast.error('An error occurred. Please try again.')
+      }
+    })
+  }
   return (
     <div className='flex items-center justify-center h-screen'>
       <Form
@@ -40,9 +40,7 @@ export default function Register() {
         autoComplete='off'
         onFinish={onSubmit}
       >
-        <Text className='flex justify-center mx-auto text-3xl font-bold'>
-          Register
-        </Text>
+        <Text className='flex justify-center mx-auto text-3xl font-bold'>Register</Text>
         <Form.Item<FieldType>
           label='Email'
           name='email'
@@ -78,12 +76,7 @@ export default function Register() {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button
-            loading={isLoading}
-            type='primary'
-            htmlType='submit'
-            className='flex ml-auto'
-          >
+          <Button loading={isLoading} type='primary' htmlType='submit' className='flex ml-auto'>
             Register
           </Button>
         </Form.Item>
@@ -96,5 +89,5 @@ export default function Register() {
         </p>
       </Form>
     </div>
-  );
+  )
 }
