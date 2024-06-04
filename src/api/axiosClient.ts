@@ -1,3 +1,4 @@
+import HttpStatusCode from '@/constants/http'
 import { useAppDispatch } from '@/redux/hooks'
 import { appAction } from '@/redux/store/appSlice'
 import { history } from '@/utils/history'
@@ -45,17 +46,17 @@ axiosClient.interceptors.response.use(
   async function (error) {
     const originalConfig = error.config
     const dispatch = useAppDispatch()
-    if (error.response?.status === 403) {
+    if (error.response?.status === HttpStatusCode.Forbidden) {
       await dispatch(appAction.setAPIState(403))
     }
-    if (error.response?.status === 401) {
+    if (error.response?.status === HttpStatusCode.Unauthorized) {
       try {
         const url = `${originalConfig.baseURL}/auth/refresh-token`
         const result = await getRefreshTokenFromLS()
         const rs = await axios.post(url, {
           refresh_token: result
         })
-        const loginResponse: LoginResponse = rs.data as LoginResponse // Type assertion
+        const loginResponse: LoginResponse = rs.data as LoginResponse
         updateLocalAccessToken(loginResponse)
         return axiosClient(originalConfig)
       } catch (_error) {

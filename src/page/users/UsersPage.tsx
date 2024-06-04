@@ -44,6 +44,7 @@ export default function UsersPage() {
       })
   })
 
+  console.log('usersData:', usersData)
   useEffect(() => {
     if (usersData) {
       setIsAuthenticated(true)

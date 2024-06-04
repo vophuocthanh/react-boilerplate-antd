@@ -1,15 +1,9 @@
 import axiosClient from '@/api/axiosClient'
 import { IUser } from '@/interface/users'
 
-export interface IUserListResponse {
-  users: IUser[]
-  total: number
-  limit: number
-  offset: number
-}
-
 export const usersAPI = {
-  getUsers(params: { limit: number; offset: number }): Promise<IUserListResponse> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getUsers(params: { limit: number; offset: number }): Promise<any> {
     const { limit, offset } = params
     const url = `/users/?limit=${limit}&offset=${offset}`
     return axiosClient.get(url)

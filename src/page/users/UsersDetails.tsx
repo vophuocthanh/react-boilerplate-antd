@@ -1,5 +1,6 @@
 import { usersAPI } from '@/api/user.api'
 import config from '@/configs'
+import HttpStatusCode from '@/constants/http'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Input, Skeleton } from 'antd'
 import axios from 'axios'
@@ -50,7 +51,7 @@ export default function UsersDetails() {
           }
         }
       )
-      if (res.status === 200) {
+      if (res.status === HttpStatusCode.Ok) {
         toast.success('User updated successfully')
         refetch()
       }
