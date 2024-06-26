@@ -8,8 +8,8 @@ const firebaseConfig = {
   authDomain: 'gdsc-boilerplate.firebaseapp.com',
   projectId: 'gdsc-boilerplate',
   storageBucket: 'gdsc-boilerplate.appspot.com',
-  messagingSenderId: import.meta.env.MESSAGING_SENDER_ID,
-  appId: import.meta.env.APP_FIREBASE_KEY,
+  messagingSenderId: '533322339814',
+  appId: '1:533322339814:web:6bb50c3bf9990957c5b227',
   measurementId: 'G-Y6Q2RQEZJP'
 }
 
