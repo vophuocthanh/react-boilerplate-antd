@@ -16,7 +16,7 @@ function* handleLogin(action: PayloadAction<Account>) {
     const res: LoginResponse = yield call(authApi.login, action.payload)
     setAccessTokenToLS(res.access_token)
     setRefreshTokenToLS(res.refresh_token)
-    yield put(authActions.loginSuccess(res))
+    // yield put(authActions.loginSuccess(res))
     yield call(history.push, `/`)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

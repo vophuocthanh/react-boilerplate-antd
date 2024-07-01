@@ -1,5 +1,6 @@
 import { authApi } from '@/api/auth.api'
 import { AppContext, AppContextType } from '@/contexts/app.context'
+import LoginWithGoogle from '@/page/auth/LoginWithGoogle'
 import { Account } from '@/redux/authSaga'
 import { FieldType } from '@/types/general.type'
 import { setAccessTokenToLS, setRefreshTokenToLS } from '@/utils/storage'
@@ -71,7 +72,7 @@ export default function Login() {
             Submit
           </Button>
         </Form.Item>
-
+        <LoginWithGoogle />
         <p className='font-medium'>
           Don’t have an account yet?{' '}
           <Link to='/register' className='text-blue-600 underline cursor-pointer'>

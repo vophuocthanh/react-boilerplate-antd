@@ -24,7 +24,7 @@ Build a react boilerplate application that displays basic pages so candidates ca
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Authentication**: Implement authentication features from the Backend api
+👉 **Authentication**: Implement authentication features from the Backend api and Login with Google & Firebase
 
 👉 **CRUD Users**: Build a page that allows users to manipulate data returned from the Backend (update, delete)
 
@@ -60,7 +60,9 @@ npm install
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-VITE_API_URL=YOUR_API_KEY
+VITE_API_URL=YOUR_API_KEY=
+APP_FIREBASE_KEY=
+MESSAGING_SENDER_ID=
 ```
 
 **Running the Project**
